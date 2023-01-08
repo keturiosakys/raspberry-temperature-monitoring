@@ -1,0 +1,19 @@
+[Unit]
+Description=Temperature and humidity monitor and exporter to Grafana Cloud
+ConditionPathExists=/home/pi/monitoring
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+Environment=GRAFANA_API_KEY=grafana_key
+Environment=GRAPHITE_ENDPOINT=grafana_graphite_endpoint
+ExecStart=/home/pi/monitoring/monitoring serve
+
+Restart=on-failure
+RestartSec=10
+startLimitIntervalSec=60
+
+WorkingDirectory=/home/pi/monitoring
+[Install]
+WantedBy=multi-user.target
