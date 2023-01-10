@@ -15,7 +15,10 @@ use tokio::{self, time};
 
 const DEFAULT_REFRESH_SECS: i32 = 900; // default is 15 minutes
 
-#[clap(name = "RPi Temperature Monitoring Service", author = "Laurynas Keturakis")]
+#[clap(
+    name = "RPi Temperature Monitoring Service",
+    author = "Laurynas Keturakis"
+)]
 #[derive(Parser)]
 struct Cli {
     #[clap(subcommand)]
@@ -36,11 +39,6 @@ enum Command {
 
 #[derive(Parser)]
 struct ServeArguments {
-    /// Optional: test flag if provided will simply run the program
-    /// without sending the data to Grafana
-    #[arg(long, short)]
-    debug: bool,
-
     /// Refresh time - how often should the temperature be sampled and supplied to Grafana Cloud (Graphite)
     /// Provide a number in seconds
     #[arg(long, short, env)]
@@ -259,12 +257,12 @@ async fn load_sensors_config(sensors_config_path: PathBuf) -> Vec<Sensor> {
                         log::error!("Unable to read sensors.yaml file at: {}", err);
                     }
                 };
-                panic!("Exiting the application");
+                panic!("Exiting service");
             }
         }
     };
 
-    let sensors: Vec<Sensor> = serde_yaml::from_str(&sensors).expect("Invalid sensors YAML file"); // TODO: better errors for yaml
+    let sensors: Vec<Sensor> = serde_yaml::from_str(&sensors).expect("Invalid sensors YAML file");
 
     return sensors;
 }
