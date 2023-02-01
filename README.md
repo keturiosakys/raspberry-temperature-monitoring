@@ -34,10 +34,11 @@ The `monitoring serve` is the command that can run in the background sampling an
 It requires a Graphite endpoint and a Grafana API key passed in as flags as well as a `sensors.yaml` file to be available in the same directory.
 
 `sensors.yaml` file lists and labels all the connected DHT22 sensors.
-	```yaml
-	- name: kitchen # label, must be all lowercase, no spaces
-	  pin: 4 # GPIO pin it's connected to
-	```
+
+```yaml
+- name: kitchen # label, must be all lowercase, no spaces
+  pin: 4 # GPIO pin it's connected to
+```
 
 You can set up the executable as a systemd service - there's an example `monitoring.service` in the repository!
 
